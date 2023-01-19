@@ -24,8 +24,8 @@ model Card {
   upsideDown    String?
   memory        String?
   image         String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime? @default(now())
+  updatedAt     DateTime? @updatedAt
   user          User[]
 }
 
@@ -35,6 +35,6 @@ model User {
   cpf             String
   password        String
   email           String
-  studyPercentage String 
+  studyPercentage String
   card           Card[]
 }
