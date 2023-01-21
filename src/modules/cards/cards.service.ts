@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { Card, User } from '@prisma/client';
+import { Card, Prisma, User } from '@prisma/client';
 import { CardsRepository } from './cards.repository';
 
 @Injectable()
 export class CardsService {
   constructor(private repository: CardsRepository) {}
 
-  async create(params: { content: Card; userId: User[`id`] }) {
+  async create(params: {
+    content: Prisma.CardCreateInput;
+    userId: User[`id`];
+  }) {
     const { content, userId } = params;
     const {
       name,
@@ -48,7 +51,17 @@ export class CardsService {
     return card;
   }
 
-  async find() {
+  async find(): Promise<Card[]> {
     return this.repository.get({});
+  }
+
+  async update(params: { where: Card[`id`]; data: Prisma.CardUpdateInput }) {
+    const { where, data } = params;
+    return this.repository.update({ where: { id: where }, data });
+  }
+
+  async delete(params: { where: { id: Card[`id`] } }) {
+    const { where } = params;
+    return this.repository.delete({ where });
   }
 }
