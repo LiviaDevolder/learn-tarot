@@ -27,8 +27,21 @@ model Card {
   updatedAt DateTime @updatedAt
   deck      Deck     @relation(fields: [deck_id], references: [id])
   deck_id   String
-  User      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+  notes      Notes[]
+}
+
+model Notes {
+  id        String   @id @default(uuid())
+  first_analysis String?
+  element_meaning String?
+  card_meaning String?
+  love_meaning String?
+  work_meaning String?
+  health_meaning String?
+  specific_relation String?
+  percentage Int @default(0)
+  card      Card     @relation(fields: [card_id], references: [id])
+  card_id   String
 }
 
 model User {
@@ -38,5 +51,4 @@ model User {
   password        String
   email           String
   studyPercentage String
-  card            Card[]
 }
