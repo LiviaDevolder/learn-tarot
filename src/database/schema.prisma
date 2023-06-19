@@ -11,22 +11,13 @@ datasource db {
 }
 
 model Card {
-  id            String   @id @default(uuid())
-  name          String
-  number        Int
-  dificulty     String?
-  firstAnalysis String?
-  elements      String?
-  meaning       String?
-  loveMeaning   String?
-  workMeaning   String?
-  healthMeaning String?
-  upsideDown    String?
-  memory        String?
-  image         String?
-  createdAt     DateTime? @default(now())
-  updatedAt     DateTime? @updatedAt
-  user          User[]
+  id        String   @id @default(uuid())
+  name      String
+  number    Int
+  image     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User[]
 }
 
 model User {
@@ -36,5 +27,5 @@ model User {
   password        String
   email           String
   studyPercentage String
-  card           Card[]
+  card            Card[]
 }
