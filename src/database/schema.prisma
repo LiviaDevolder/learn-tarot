@@ -11,11 +11,12 @@ datasource db {
 }
 
 model Deck {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   card      Card[]
+  reading   Reading[]
 }
 
 model Card {
@@ -47,7 +48,7 @@ model Notes {
 }
 
 model User {
-  id        String  @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
   lastname  String
   cpf       String
@@ -55,4 +56,15 @@ model User {
   email     String
   birthdate String
   notes     Notes[]
+  reading   Reading[]
+}
+
+model Reading {
+  id       String @id @default(uuid())
+  image    String
+  meanings Json
+  deck     Deck   @relation(fields: [deck_id], references: [id])
+  deck_id  String
+  user     User   @relation(fields: [user_id], references: [id])
+  user_id  String
 }
