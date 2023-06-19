@@ -10,6 +10,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Deck {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  card      Card[]
+}
+
 model Card {
   id        String   @id @default(uuid())
   name      String
@@ -17,7 +25,10 @@ model Card {
   image     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User[]
+  deck      Deck     @relation(fields: [deck_id], references: [id])
+  deck_id   String
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?
 }
 
 model User {
