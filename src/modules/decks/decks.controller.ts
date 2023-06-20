@@ -10,7 +10,9 @@ import {
 import { DecksService } from './decks.service';
 import { CreateDeckDto } from './dto/create-deck.dto';
 import { UpdateDeckDto } from './dto/update-deck.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Decks')
 @Controller('decks')
 export class DecksController {
   constructor(private readonly decksService: DecksService) {}
