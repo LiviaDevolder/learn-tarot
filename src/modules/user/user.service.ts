@@ -8,7 +8,7 @@ export class UserService {
 
   async create(params: { content: User }) {
     const { content } = params;
-    const { name, cpf, password, email, studyPercentage } = content;
+    const { name, cpf, password, email, birthdate, lastname } = content;
 
     const user = await this.repository.create({
       data: {
@@ -16,7 +16,8 @@ export class UserService {
         cpf,
         password,
         email,
-        studyPercentage,
+        birthdate,
+        lastname,
       },
     });
 

@@ -1,48 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { Card, Prisma, User } from '@prisma/client';
+import { Card, Prisma } from '@prisma/client';
 import { CardsRepository } from './cards.repository';
 
 @Injectable()
 export class CardsService {
   constructor(private repository: CardsRepository) {}
 
-  async create(params: {
-    content: Prisma.CardCreateInput;
-    userId: User[`id`];
-  }) {
-    const { content, userId } = params;
-    const {
-      name,
-      number,
-      dificulty,
-      firstAnalysis,
-      elements,
-      meaning,
-      loveMeaning,
-      workMeaning,
-      healthMeaning,
-      upsideDown,
-      memory,
-      image,
-    } = content;
+  async create(params: { content: Prisma.CardCreateInput }) {
+    const { content } = params;
+    const { name, number, image } = content;
 
     const card = await this.repository.create({
       data: {
         name,
         number,
-        dificulty,
-        firstAnalysis,
-        elements,
-        meaning,
-        loveMeaning,
-        workMeaning,
-        healthMeaning,
-        upsideDown,
-        memory,
         image,
-        user: {
+        deck: {
           connect: {
-            id: userId,
+            id: content.deck.connect?.id,
           },
         },
       },

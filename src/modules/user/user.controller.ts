@@ -12,13 +12,14 @@ export class UserController {
     @Body()
     data: {
       name: string;
+      lastname: string;
       cpf: string;
       password: string;
       email: string;
-      studyPercentage: string;
+      birthdate: string;
     },
   ): Promise<User> {
-    const { name, cpf, password, email, studyPercentage } = data;
+    const { name, cpf, password, email, birthdate, lastname } = data;
 
     return this.userService.create({
       content: {
@@ -27,7 +28,8 @@ export class UserController {
         cpf,
         password,
         email,
-        studyPercentage,
+        birthdate,
+        lastname,
       },
     });
   }
