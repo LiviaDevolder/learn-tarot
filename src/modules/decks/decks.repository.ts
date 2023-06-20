@@ -1,26 +1,31 @@
 import { PrismaService } from 'src/database/prisma.service';
 import { CreateDeckDto } from './dto/create-deck.dto';
 import { UpdateDeckDto } from './dto/update-deck.dto';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class DecksRepository {
   constructor(private prisma: PrismaService) {}
   create(createDeckDto: CreateDeckDto) {
-    return 'This action adds a new deck';
+    return this.prisma.deck.create({ data: createDeckDto });
   }
 
   findAll() {
     return this.prisma.deck.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} deck`;
+  findOne(id: string) {
+    return this.prisma.deck.findUnique({ where: { id } });
   }
 
-  update(id: number, updateDeckDto: UpdateDeckDto) {
-    return `This action updates a #${id} deck`;
+  update(id: string, updateDeckDto: UpdateDeckDto) {
+    return this.prisma.deck.update({
+      where: { id },
+      data: updateDeckDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} deck`;
+  remove(id: string) {
+    return this.prisma.deck.delete({ where: { id } });
   }
 }

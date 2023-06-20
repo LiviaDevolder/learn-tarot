@@ -7,22 +7,22 @@ import { DecksRepository } from './decks.repository';
 export class DecksService {
   constructor(private readonly decksRepository: DecksRepository) {}
   create(createDeckDto: CreateDeckDto) {
-    return 'This action adds a new deck';
+    return this.decksRepository.create(createDeckDto);
   }
 
   findAll() {
     return this.decksRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} deck`;
+  findOne(id: string) {
+    return this.decksRepository.findOne(id);
   }
 
-  update(id: number, updateDeckDto: UpdateDeckDto) {
-    return `This action updates a #${id} deck`;
+  update(id: string, updateDeckDto: UpdateDeckDto) {
+    return this.decksRepository.update(id, updateDeckDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} deck`;
+  remove(id: string) {
+    return this.decksRepository.remove(id);
   }
 }
